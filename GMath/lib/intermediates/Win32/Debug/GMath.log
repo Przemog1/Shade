@@ -1,0 +1,9 @@
+﻿  Mat4f.cpp
+  MatrixOperations.cpp
+  Transform.cpp
+  Vec2f.cpp
+  Vec3f.cpp
+  Vec4f.cpp
+  VectorOperations.cpp
+  Generating Code...
+  GMath.vcxproj -> D:\Projects\Shade\GMath\\lib\Win32\Debug\GMath.lib
