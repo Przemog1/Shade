@@ -5,6 +5,8 @@
 #include <GMath/Util.h>
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
 void Camera::update(const Window& window, float deltaTime)
 {
 	gmath::Vec2f cursorPos = window.getCursorPos();
@@ -12,10 +14,10 @@ void Camera::update(const Window& window, float deltaTime)
 	pitch += (cursorPos.y - lastCursorPos.y) * cameraSensitivity;
 	yaw += (cursorPos.x - lastCursorPos.x) * cameraSensitivity;
 
-	 pitch = 0.0f;
-
 	lastCursorPos.x = cursorPos.x;
 	lastCursorPos.y = cursorPos.y;
+
+	pitch = 0.0f;
 
 	if (pitch >= 90.0f)
 		pitch = 89.0f;
@@ -70,8 +72,6 @@ void Camera::update(const Window& window, float deltaTime)
 		tmp.x *= dt;
 		tmp.y = 0.0f;
 		tmp.z *= dt;
-
-
 
 		from = from + tmp;
 		to = to + tmp;

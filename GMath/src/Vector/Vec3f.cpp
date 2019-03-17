@@ -37,7 +37,7 @@ namespace gmath
 
 	Vec3f& Vec3f::normalize()
 	{
-		float length = sqrt(x*x + y * y);
+		float length = sqrt(x * x + y * y + z * z);
 
 		if (length == 0.0f)
 			return *this;

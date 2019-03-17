@@ -104,8 +104,6 @@ namespace gmath
 
 		const Vec3f upv = crossProduct(forward, right);
 
-		std::cout << std::endl;
-
 		Mat4f result;
 
 		result(0, 0) = right.x;		result(0, 1) = right.y;		result(0, 2) = right.z;

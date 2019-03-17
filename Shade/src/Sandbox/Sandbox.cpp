@@ -14,7 +14,7 @@
 Sandbox::Sandbox(int windowWidth, int windowHeight, const std::string& title)
 	:Application(windowWidth,windowHeight,title), 
 	cubeRenderer(CubeForwardRenderer::get()), 
-	camera(gmath::Vec3f(0.0f), gmath::Vec3f(0.0,0.0f,1.0f)),
+	camera(gmath::Vec3f(0.0f,0.0,0.0), gmath::Vec3f(0.0,2.0f,-1.0f)),
 	timeElapsed(0)
 {
 	
