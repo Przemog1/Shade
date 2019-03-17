@@ -77,7 +77,29 @@ void CubeForwardRenderer::draw(/*FIX IT!*/ Cube& cube,/*FIX IT!*/ Shader& shader
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
 }
 
-void CubeForwardRenderer::drawMultiple(const std::vector<Cube>& cubes, Shader& shader)
+void CubeForwardRenderer::drawMultiple(const std::vector<Cube>& cubes,/*FIX IT!*/ Shader& shader)
 {
+	if (cubes.size() == 0)
+		return;
 
+	shader.bind();
+	shader.uniform1i("tex", 0);
+	vao.bind();
+
+	const PNGTexture* prevTexture = cubes[0].getTexture();
+	cubes[0].getTexture()->bind();
+
+	for (auto& cube : cubes)
+	{
+		if (cube.getTexture() != prevTexture)
+		{
+			cube.getTexture()->bind();
+			prevTexture = cube.getTexture();
+		}
+
+		gmath::Mat4f transform = cube.getTransform(); /*FIX IT!*/
+		shader.uniformMatrix4f("modelMatrix", transform.getMatrixPtr());
+
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, NULL);
+	}
 }

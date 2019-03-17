@@ -32,9 +32,29 @@ void Sandbox::onStart()
 
 	TextureManager::getTextureManager().addTexture("res/textures/pepe.png", "pepe");
 	TextureManager::getTextureManager().addTexture("res/textures/wooden_floor/wooden_floor_diffuse.png", "woodenFloor");
-	texture = TextureManager::getTextureManager().getTexture("pepe");
+	TextureManager::getTextureManager().addTexture("res/textures/metal_diffuse.png", "metal");
 
-	cube.setTexture(texture);
+	cubes.reserve(15);
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+
+	for (int i = 2; i < cubes.size(); i++)
+		cubes[i].setTransform(gmath::translate(0.0f,(float)i - 2.0f,(float)i));
+
+
 	floor.setTexture(TextureManager::getTextureManager().getTexture("woodenFloor"), TextureType::diffuse);
 
 	initializeShader();
@@ -55,15 +75,16 @@ void Sandbox::update()
 
 	//Shader setup
 	gmath::Mat4f viewMatrix = camera.getViewMatrix();
-
 	shader.uniformMatrix4f("cameraMatrix", viewMatrix.getMatrixPtr());
+
+
 
 	//cube update
 	gmath::Mat4f modelMatrix = gmath::translate(0.0f, 0.0f, -2.0f) * gmath::rotateY(timeElapsed * 3.1415926535f / 4.0f);
-	cube.setTransform(modelMatrix);
-
+	cubes[0].setTransform(modelMatrix);
+	cubes[1].setTransform(gmath::translate(3.0f, 0.0f, 0.0f));
 	//draw
-	cubeRenderer.draw(cube,shader);
+	cubeRenderer.drawMultiple(cubes,shader);
 	floor.draw(shader);
 
 	

@@ -28,14 +28,14 @@ private:
 	void update() override;
 
 private:
-	PNGTexture* texture;
-	Cube cube;
+	std::vector<Cube> cubes;
+	Floor floor;
 	CubeForwardRenderer& cubeRenderer;
+
 	Timer timer;
+
 	Camera camera;
 	gmath::Mat4f perspectiveMatrix;
-
-	Floor floor;
 	
 	Shader shader;
 
