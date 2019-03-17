@@ -15,8 +15,8 @@ Floor::Floor()
 	};
 
 	unsigned int indices[] = {
-		0,1,2,
-		0,2,3
+		2,1,0,
+		3,2,0
 	};
 
 	vao.bind();

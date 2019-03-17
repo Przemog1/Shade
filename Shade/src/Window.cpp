@@ -11,6 +11,161 @@ void APIENTRY glDebugOutput(GLenum source,
 	GLenum severity,
 	GLsizei length,
 	const GLchar *message,
+	const void *userParam);
+
+Window::Window(int width, int height, const std::string& title)
+	:width(width),
+	height(height),
+	clearColor({ 0, 0, 0 }),
+	enabledBuffersFlags(0x00000000)
+{
+	initializeGLFW();
+	createWindow(title);
+	initializeGLAD();
+	setVSyncOn();
+	initializeDebugContext();
+	
+
+	enabledBuffersFlags = enabledBuffersFlags | GL_COLOR_BUFFER_BIT;
+
+	glEnable(GL_CULL_FACE);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+}
+
+Window::~Window()
+{
+	glfwTerminate();
+}
+
+bool Window::isKeyPressed(int keyCode) const
+{
+	return (GLFW_PRESS == glfwGetKey(window, keyCode));
+}
+
+gmath::Vec2f Window::getCursorPos() const
+{
+	double x;
+	double y;
+	glfwGetCursorPos(window, &x, &y);
+	return gmath::Vec2f(static_cast<float>(x), static_cast<float>(y));
+}
+
+void Window::close()
+{
+	glfwSetWindowShouldClose(window,GLFW_TRUE);
+}
+
+bool Window::shouldClose()
+{
+	return glfwWindowShouldClose(window);
+}
+
+void Window::enableDepthTest()
+{
+	enabledBuffersFlags;
+	enabledBuffersFlags;
+	glEnable(GL_DEPTH_TEST);
+	enabledBuffersFlags = enabledBuffersFlags | GL_DEPTH_BUFFER_BIT;
+	enabledBuffersFlags;
+	enabledBuffersFlags;
+	
+}
+void Window::disableDepthTest()
+{
+	glDisable(GL_DEPTH_TEST);
+
+	enabledBuffersFlags = enabledBuffersFlags & (0xFFFFFFFF ^ GL_DEPTH_BUFFER_BIT);
+	enabledBuffersFlags;
+	enabledBuffersFlags;
+}
+
+void Window::setVSyncOn()
+{
+	glfwSwapInterval(1);
+}
+
+void Window::setVSyncOff()
+{
+	glfwSwapInterval(0);
+}
+
+void Window::swapBuffers()
+{
+	glfwSwapBuffers(window);
+}
+
+void Window::pollEvents()
+{
+	glfwPollEvents();
+}
+
+void Window::setClearColor(uint8_t r, uint8_t g, uint8_t b)
+{
+	glClearColor(byteToFloatColorValue(r), byteToFloatColorValue(g), byteToFloatColorValue(b), 1.0f);
+}
+
+void Window::clear()
+{
+	glClear(enabledBuffersFlags);
+}
+
+void Window::createWindow(const std::string& title)
+{
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+
+	window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
+	if (!window)
+	{
+		glfwTerminate();
+		std::cout << "failed to create window.\n";
+		std::cin.get();
+		std::terminate();
+	}
+
+	glfwMakeContextCurrent(window);
+}
+
+void Window::initializeGLFW()
+{
+	if (!glfwInit())
+	{
+		std::cout << "failed to initialize glfw.\n";
+		std::cin.get();
+		std::terminate();
+	}
+}
+
+void Window::initializeGLAD()
+{
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		std::cout << "failed to initialize glad.\n";
+		std::cin.get();
+	}
+}
+
+void Window::initializeDebugContext()
+{
+	GLint flags;
+	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
+	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT)
+	{
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageCallback(glDebugOutput, nullptr);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
+	}
+}
+
+void APIENTRY glDebugOutput(GLenum source,
+	GLenum type,
+	GLuint id,
+	GLenum severity,
+	GLsizei length,
+	const GLchar *message,
 	const void *userParam)
 {
 	// ignore non-significant error/warning codes
@@ -50,124 +205,4 @@ void APIENTRY glDebugOutput(GLenum source,
 	case GL_DEBUG_SEVERITY_NOTIFICATION: std::cout << "Severity: notification"; break;
 	} std::cout << std::endl;
 	std::cout << std::endl;
-}
-
-bool Window::isKeyPressed(int keyCode) const
-{
-	return (GLFW_PRESS == glfwGetKey(window, keyCode));
-}
-
-gmath::Vec2f Window::getCursorPos() const
-{
-	double x;
-	double y;
-	glfwGetCursorPos(window, &x, &y);
-	return gmath::Vec2f(static_cast<float>(x), static_cast<float>(y));
-}
-
-void Window::close()
-{
-	glfwSetWindowShouldClose(window,GLFW_TRUE);
-}
-
-bool Window::shouldClose()
-{
-	return glfwWindowShouldClose(window);
-}
-
-void Window::setVSyncOn()
-{
-	glfwSwapInterval(1);
-}
-
-void Window::setVSyncOff()
-{
-	glfwSwapInterval(0);
-}
-
-void Window::swapBuffers()
-{
-	glfwSwapBuffers(window);
-}
-
-void Window::pollEvents()
-{
-	glfwPollEvents();
-}
-
-void Window::setClearColor(uint8_t r, uint8_t g, uint8_t b)
-{
-	glClearColor(byteToFloatColorValue(r), byteToFloatColorValue(g), byteToFloatColorValue(b), 1.0f);
-}
-
-void Window::clear()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
-Window::Window(int width, int height, const std::string& title)
-	:width(width),
-	height(height),
-	clearColor({ 0, 0, 0 })
-{
-	initializeGLFW();
-	createWindow(title);
-	initializeGLAD();
-	setVSyncOn();
-
-	GLint flags;
-	glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
-	if (flags & GL_CONTEXT_FLAG_DEBUG_BIT)
-	{
-		glEnable(GL_DEBUG_OUTPUT);
-		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-		glDebugMessageCallback(glDebugOutput, nullptr);
-		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, nullptr, GL_TRUE);
-	}
-
-	glEnable(GL_DEPTH_TEST);
-	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-}
-
-Window::~Window()
-{
-	glfwTerminate();
-}
-
-void Window::createWindow(const std::string& title)
-{
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-
-	window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-	if (!window)
-	{
-		glfwTerminate();
-		std::cout << "failed to create window.\n";
-		std::cin.get();
-		std::terminate();
-	}
-
-	glfwMakeContextCurrent(window);
-}
-
-void Window::initializeGLFW()
-{
-	if (!glfwInit())
-	{
-		std::cout << "failed to initialize glfw.\n";
-		std::cin.get();
-		std::terminate();
-	}
-}
-
-void Window::initializeGLAD()
-{
-	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
-	{
-		std::cout << "failed to initialize glad.\n";
-		std::cin.get();
-	}
 }

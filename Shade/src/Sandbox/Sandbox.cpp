@@ -5,8 +5,7 @@
 
 //TODO: refactorize shader, window, CubeForwardRenderer class 
 //TODO: extend Timer class (timeElapsed and deltaTime needs to be encapsulated)
-//TODO: make use of ibo in cube renderer
-//TODO: fix camera
+//TODO: fix (redesign?) the camera class
 
 #include "../Cube.h"
 #include <vector>
@@ -28,7 +27,8 @@ Sandbox::~Sandbox()
 
 void Sandbox::onStart()
 {
-	window.setClearColor(0, 10, 10);
+	window.setClearColor(0, 123, 123);
+	window.enableDepthTest();
 
 	TextureManager::getTextureManager().addTexture("res/textures/pepe.png", "pepe");
 	TextureManager::getTextureManager().addTexture("res/textures/wooden_floor/wooden_floor_diffuse.png", "woodenFloor");
@@ -59,7 +59,7 @@ void Sandbox::update()
 	shader.uniformMatrix4f("cameraMatrix", viewMatrix.getMatrixPtr());
 
 	//cube update
-	gmath::Mat4f modelMatrix = gmath::Mat4f(1.0f);
+	gmath::Mat4f modelMatrix = gmath::translate(0.0f, 0.0f, -2.0f) * gmath::rotateY(timeElapsed * 3.1415926535f / 4.0f);
 	cube.setTransform(modelMatrix);
 
 	//draw

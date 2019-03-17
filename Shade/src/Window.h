@@ -28,6 +28,9 @@ public:
 	bool isKeyPressed(int keyCode) const;
 	gmath::Vec2f getCursorPos() const;
 
+	void enableDepthTest();
+	void disableDepthTest();
+
 	void setVSyncOn();
 	void setVSyncOff();
 	void close();
@@ -47,4 +50,7 @@ private: //on create functions
 	void createWindow(const std::string& title);
 	void initializeGLFW();
 	void initializeGLAD();
+	void initializeDebugContext();
+
+	int enabledBuffersFlags;
 };
