@@ -9,7 +9,7 @@ class TextureManager
 public:
 	void addTexture(const std::string& textureImagePath, const std::string& textureName);
 	PNGTexture* getTexture(const std::string& name);
-	static TextureManager& getTextureManager();
+	static TextureManager& get();
 	
 private:
 	TextureManager() = default;

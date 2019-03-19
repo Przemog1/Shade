@@ -34,7 +34,7 @@ TextureManager::~TextureManager()
 	textures.clear();
 }
 
-TextureManager& TextureManager::getTextureManager()
+TextureManager& TextureManager::get()
 {
 	static TextureManager textureManager;
 	return textureManager;

@@ -107,7 +107,7 @@ namespace gmath
 		Mat4f result;
 
 		result(0, 0) = right.x;		result(0, 1) = right.y;		result(0, 2) = right.z;
-		result(1, 0) = upv.x;		result(1, 1) = upv.y;		result(2, 2) = upv.z;
+		result(1, 0) = upv.x;		result(1, 1) = upv.y;		result(1, 2) = upv.z;
 		result(2, 0) = forward.x;	result(2, 1) = forward.y;	result(2, 2) = forward.z;
 
 		result(0, 3) = -dotProduct(right, from);

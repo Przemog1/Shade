@@ -17,8 +17,6 @@ void Camera::update(const Window& window, float deltaTime)
 	lastCursorPos.x = cursorPos.x;
 	lastCursorPos.y = cursorPos.y;
 
-	pitch = 0.0f;
-
 	if (pitch >= 90.0f)
 		pitch = 89.0f;
 	if (pitch <= -90.0f)

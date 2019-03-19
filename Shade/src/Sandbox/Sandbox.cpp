@@ -30,33 +30,31 @@ void Sandbox::onStart()
 	window.setClearColor(0, 123, 123);
 	window.enableDepthTest();
 
-	TextureManager::getTextureManager().addTexture("res/textures/pepe.png", "pepe");
-	TextureManager::getTextureManager().addTexture("res/textures/wooden_floor/wooden_floor_diffuse.png", "woodenFloor");
-	TextureManager::getTextureManager().addTexture("res/textures/metal_diffuse.png", "metal");
+	TextureManager::get().addTexture("res/textures/pepe.png", "pepe");
+	TextureManager::get().addTexture("res/textures/wooden_floor/wooden_floor_diffuse.png", "woodenFloor");
+	TextureManager::get().addTexture("res/textures/bezi.png", "bezi");
 
 	cubes.reserve(15);
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
-	cubes.emplace_back(TextureManager::getTextureManager().getTexture("metal"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
 
-	for (int i = 2; i < cubes.size(); i++)
+	for(unsigned int i = 2; i < cubes.size(); i++)
 		cubes[i].setTransform(gmath::translate(0.0f,(float)i - 2.0f,(float)i));
 
 
-	floor.setTexture(TextureManager::getTextureManager().getTexture("woodenFloor"), TextureType::diffuse);
-
+	floor.setTexture(TextureManager::get().getTexture("woodenFloor"), TextureType::diffuse);
 	initializeShader();
 
 	perspectiveMatrix = gmath::perspective(90.0f, 16.0f / 9.0f, 0.01f, 100.0f);
