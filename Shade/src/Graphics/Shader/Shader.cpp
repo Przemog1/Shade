@@ -94,6 +94,8 @@ void Shader::getSourceCode(Shader::Type type, const std::string& fileName)
 			glGetShaderInfoLog(shader, 512, 0, infoLog);
 			std::cout << infoLog;
 
+			__debugbreak();
+
 			delete[] infoLog;
 		}
 	}
@@ -140,6 +142,21 @@ void Shader::uniform1f(const std::string& uniformName, float v)
 	else
 	{
 		glUniform1f(un->second, v);
+	}
+}
+
+void Shader::uniform3f(const std::string& uniformName, float x, float y, float z)
+{
+	auto un = uniforms.find(uniformName);
+
+	if (un == uniforms.end())
+	{
+		un = uniforms.emplace(std::make_pair(uniformName, findUniform(uniformName))).first;
+		glUniform3f(un->second, x, y, z);
+	}
+	else
+	{
+		glUniform3f(un->second, x, y, z);
 	}
 }
 

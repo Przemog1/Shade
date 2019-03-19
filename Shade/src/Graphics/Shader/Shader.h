@@ -19,6 +19,7 @@ public:
 	//uniforms
 public:
 	void uniform1f(const std::string& uniformName, float v);
+	void uniform3f(const std::string& uniformName, float x, float y, float z);
 	void uniform1i(const std::string& uniformName, int v);
 	void uniformMatrix4f(const std::string& uniformName, float* matrixPtr);
 

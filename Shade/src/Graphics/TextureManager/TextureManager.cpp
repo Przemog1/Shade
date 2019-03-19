@@ -6,7 +6,7 @@ void TextureManager::addTexture(const std::string& textureImagePath, const std::
 	textures.emplace(std::make_pair<std::string,PNGTexture*>(std::string(textureName), new PNGTexture(textureImagePath)));
 }
 
-PNGTexture* TextureManager::getTexture(const std::string& name)
+const PNGTexture* TextureManager::getTexture(const std::string& name) const
 {
 	auto tex = textures.find(name);
 

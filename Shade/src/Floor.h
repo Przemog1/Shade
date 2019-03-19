@@ -8,12 +8,16 @@ class Floor
 public:
 	Floor();
 
-	void setTexture(PNGTexture * texture, TextureType texType);
+	void setDiffuseTexture(const PNGTexture * texture);
+	void setSpecularTexture(const PNGTexture * texture);
 	void draw(Shader& shader);
 
+	inline const PNGTexture*  getDiffuseTexture()	{ return diffuse; }
+	inline const PNGTexture*  getSpecularTexture() { return specular; }
+
 private:
-	PNGTexture* diffuse;
-	PNGTexture* specular;
+	const PNGTexture* diffuse;
+	const PNGTexture* specular;
 
 	VAO vao;
 	VBO vbo;

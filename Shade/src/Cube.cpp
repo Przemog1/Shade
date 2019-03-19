@@ -1,21 +1,21 @@
 #include "Cube.h"
 #include "Graphics\Texture\PNGTexture.h"
 
-Cube::Cube()
-	:texture(nullptr)
+Cube::Cube(const PNGTexture* diffuse, const PNGTexture* specular)
 {
+	this->diffuse = diffuse;
+	this->specular = specular;
 }
 
-Cube::Cube(PNGTexture* texture)
+void Cube::setDiffuseTexture(const PNGTexture* texture)
 {
-	this->texture = texture;
+	this->specular = texture;
 }
 
-void Cube::setTexture(PNGTexture* texture)
+void Cube::setSpecularTexture(const PNGTexture* texture)
 {
-	this->texture = texture;
+	this->diffuse = texture;
 }
-
 
 Cube::~Cube()
 {

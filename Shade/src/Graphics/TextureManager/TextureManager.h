@@ -8,7 +8,7 @@ class TextureManager
 {
 public:
 	void addTexture(const std::string& textureImagePath, const std::string& textureName);
-	PNGTexture* getTexture(const std::string& name);
+	const PNGTexture* getTexture(const std::string& name) const;
 	static TextureManager& get();
 	
 private:

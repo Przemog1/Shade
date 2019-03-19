@@ -25,20 +25,25 @@ Floor::Floor()
 	ibo.setData(indices, 6);
 }
 
-void Floor::setTexture(PNGTexture * texture, TextureType texType)
+void Floor::setDiffuseTexture(const PNGTexture * texture)
 {
 	this->diffuse = texture;
+}
+
+void Floor::setSpecularTexture(const PNGTexture * texture)
+{
+	this->specular = texture;
 }
 
 void Floor::draw(Shader& shader)
 {
 	vao.bind();
 	shader.uniformMatrix4f("modelMatrix", gmath::Mat4f(1.0f).getMatrixPtr());
-	if (diffuse != nullptr)
-	{
-		shader.uniform1i("tex", 0);
-		diffuse->bind();
-	}
+
+	shader.uniform1i("tex_d", 0);
+	shader.uniform1i("tex_s", 1);
+	diffuse->bind();
+	specular->bind(1);
 
 	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, NULL);
 }

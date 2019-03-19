@@ -5,7 +5,9 @@
 
 //TODO: refactorize shader, window, CubeForwardRenderer class 
 //TODO: extend Timer class (timeElapsed and deltaTime needs to be encapsulated)
-//TODO: fix (redesign?) the camera class
+//TODO: (redesign?) the camera class
+
+//TODO: shader uniform debug - inform, when shader doesn't have uniform of certain name
 
 #include "../Cube.h"
 #include <vector>
@@ -27,39 +29,49 @@ Sandbox::~Sandbox()
 
 void Sandbox::onStart()
 {
-	window.setClearColor(0, 123, 123);
+	window.setClearColor(0, 0, 0);
 	window.enableDepthTest();
 
 	TextureManager::get().addTexture("res/textures/pepe.png", "pepe");
+	TextureManager::get().addTexture("res/textures/metal_specular.png", "pepeSpecular");
+
 	TextureManager::get().addTexture("res/textures/wooden_floor/wooden_floor_diffuse.png", "woodenFloor");
+	TextureManager::get().addTexture("res/textures/wooden_floor/wooden_floor_specular.png", "woodenFloorSpecular");
+
 	TextureManager::get().addTexture("res/textures/bezi.png", "bezi");
+	TextureManager::get().addTexture("res/textures/bezi_specular2.png", "beziSpecular");
+
+	const PNGTexture* bezi = TextureManager::get().getTexture("bezi");
+	const PNGTexture* beziSpecular = TextureManager::get().getTexture("beziSpecular");
+	const PNGTexture* pepe = TextureManager::get().getTexture("pepe");
+	const PNGTexture* pepeSpecular = TextureManager::get().getTexture("pepeSpecular");
 
 	cubes.reserve(15);
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("pepe"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
-	cubes.emplace_back(TextureManager::get().getTexture("bezi"));
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(pepe, pepeSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
+	cubes.emplace_back(bezi, beziSpecular);
 
-	for(unsigned int i = 2; i < cubes.size(); i++)
-		cubes[i].setTransform(gmath::translate(0.0f,(float)i - 2.0f,(float)i));
+	for(int i = 2; i < cubes.size(); i++)
+		cubes[i].setTransform(gmath::translate((float)(-i) - 1.5f ,0.0f,(float)i - 5.0f));
 
 
-	floor.setTexture(TextureManager::get().getTexture("woodenFloor"), TextureType::diffuse);
+	floor.setDiffuseTexture(TextureManager::get().getTexture("woodenFloor"));
+	floor.setSpecularTexture(TextureManager::get().getTexture("woodenFloorSpecular"));
 	initializeShader();
 
 	perspectiveMatrix = gmath::perspective(90.0f, 16.0f / 9.0f, 0.01f, 100.0f);
 	shader.uniformMatrix4f("perspectiveMatrix", perspectiveMatrix.getMatrixPtr());
-
 
 	timer.reset();
 }
@@ -74,11 +86,11 @@ void Sandbox::update()
 	//Shader setup
 	gmath::Mat4f viewMatrix = camera.getViewMatrix();
 	shader.uniformMatrix4f("cameraMatrix", viewMatrix.getMatrixPtr());
-
+	shader.uniform3f("worldSpaceCameraPos", 2.0f*std::sin(timeElapsed), 0.0f, 2.0f*std::cos(timeElapsed));
 
 
 	//cube update
-	gmath::Mat4f modelMatrix = gmath::translate(0.0f, 0.0f, -2.0f) * gmath::rotateY(timeElapsed * 3.1415926535f / 4.0f);
+	gmath::Mat4f modelMatrix = gmath::translate(0.0f, 0.0f, -3.0f) * gmath::rotateY(timeElapsed * 3.1415926535f / 4.0f);
 	cubes[0].setTransform(modelMatrix);
 	cubes[1].setTransform(gmath::translate(3.0f, 0.0f, 0.0f));
 	//draw
@@ -97,8 +109,8 @@ void Sandbox::updateTimer()
 
 void Sandbox::initializeShader()
 {
-	shader.getSourceCode(Shader::Type::Fragment, "shaders/basicFragmentShader.shader");
-	shader.getSourceCode(Shader::Type::Vertex, "shaders/basicVertexShader.shader");
+	shader.getSourceCode(Shader::Type::Vertex, "shaders/BlinnPhongVS.shader");
+	shader.getSourceCode(Shader::Type::Fragment, "shaders/BlinnPhongFS.shader");
 	shader.linkProgram();
 	shader.bind();
 }

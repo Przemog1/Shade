@@ -5,14 +5,17 @@
 class Cube : public Transformable
 {
 public:
-	explicit Cube(PNGTexture*texture);
-	Cube();
+	explicit Cube(const PNGTexture* diffuse = nullptr, const PNGTexture* specular = nullptr);
 	~Cube();
 
-	void setTexture(PNGTexture* texture);
-	inline const PNGTexture* getTexture() const { return texture; }
+	void setDiffuseTexture(const PNGTexture* texture);
+	void setSpecularTexture(const PNGTexture* texture);
+	inline const PNGTexture* getDiffuseTexture() const { return diffuse; }
+	inline const PNGTexture* getSpecularTexture() const { return specular; }
+
 
 private:
-	PNGTexture* texture;
+	const PNGTexture* diffuse;
+	const PNGTexture* specular;
 };
 
