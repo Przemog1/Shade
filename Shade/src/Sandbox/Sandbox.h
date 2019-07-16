@@ -37,7 +37,7 @@ private:
 	Camera camera;
 	gmath::Mat4f perspectiveMatrix;
 	
-	Shader shader;
+	Shader* mainShader;
 
 private:
 	void updateTimer();
@@ -45,12 +45,12 @@ private:
 	float deltaTime;
 
 private:
-	void initializeShader();
+	void initializeShaders();
 
 };
 
 Application* createApplication()
 {
-	return new Sandbox(960,540,"Hello!");
+	return new Sandbox(960*2,540*2,"Hello!");
 }
 

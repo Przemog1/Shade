@@ -15,6 +15,12 @@ public:
 
 	void bind() const;
 	void unbind() const;
+
+	Shader(Shader&& other);
+	Shader& operator=(Shader&& other);
+
+	Shader(const Shader&) = delete;
+	Shader& operator=(const Shader&) = delete;
 		
 	//uniforms
 public:
@@ -30,5 +36,4 @@ private:
 	std::unordered_map<std::string, int> uniforms;
 
 	int findUniform(const std::string& uniformName);
-	bool isBound;
 };

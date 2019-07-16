@@ -4,6 +4,8 @@
 #include "Graphics/buffers/Buffers.h"
 #include "Camera.h"
 
+#include <iostream>
+
 class CubeForwardRenderer
 {
 public:

@@ -1,4 +1,5 @@
 #include "Application.h"
+#include <memory>
 
 extern Application* createApplication();
 

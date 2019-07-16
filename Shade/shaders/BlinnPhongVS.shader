@@ -13,7 +13,7 @@ uniform mat4 modelMatrix;
 uniform mat4 cameraMatrix;
 uniform mat4 perspectiveMatrix;
 
-uniform vec3 worldSpaceCameraPos;
+uniform vec3 worldSpaceLightPos;
 
 void main()
 {
@@ -22,5 +22,5 @@ void main()
 
 	f_cameraSpaceNormal = vec3(cameraMatrix * modelMatrix * vec4(v_normals,0.0));
 	f_cameraSpaceFragPos = vec3(cameraMatrix * modelMatrix * vec4(v_position, 1.0));
-	f_cameraSpaceLightPos = vec3(cameraMatrix * vec4(worldSpaceCameraPos, 1.0));
+	f_cameraSpaceLightPos = vec3(cameraMatrix * vec4(worldSpaceLightPos, 1.0));
 }

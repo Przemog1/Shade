@@ -66,6 +66,15 @@
     <ClCompile Include="src\Floor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ShaderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaterialTemplate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Graphics\buffers\IBO.h">
@@ -119,5 +128,18 @@
     <ClInclude Include="src\Floor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ShaderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialTemplate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shaders\BlinnPhongFS.shader" />
+    <None Include="shaders\BlinnPhongVS.shader" />
   </ItemGroup>
 </Project>

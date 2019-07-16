@@ -4,7 +4,7 @@
 #include <iostream>
 
 Shader::Shader()
-	:shaderProgramID(0), isBound(false)
+	:shaderProgramID(0)
 {
 	shaderProgramID = glCreateProgram();
 }
@@ -193,4 +193,16 @@ void Shader::uniformMatrix4f(const std::string& uniformName, float* matrixPtr)
 int Shader::findUniform(const std::string& uniformName)
 {
 	return glGetUniformLocation(shaderProgramID, uniformName.c_str());
+}
+
+Shader::Shader(Shader&& other)
+{
+	this->shaderProgramID = other.shaderProgramID;
+	other.shaderProgramID = 0;
+}
+Shader& Shader::operator=(Shader&& other)
+{
+	this->shaderProgramID = other.shaderProgramID;
+	other.shaderProgramID = 0;
+	return *this;
 }
