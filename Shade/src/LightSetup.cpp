@@ -18,7 +18,7 @@ void LightSetup::updateSSBOLightingData(SSBO& ssbo) const
 
 	for (unsigned int i = 0; i < pointLights.size(); i++)
 	{
-		uint32_t lightOffset = firstLightOffset + i * sizeof(PointLight);
+		size_t lightOffset = firstLightOffset + i * sizeof(PointLight);
 		std::memcpy(reinterpret_cast<void*>(lightOffset), &pointLights[i], sizeof(PointLight));
 	}
 
