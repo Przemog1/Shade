@@ -68,7 +68,7 @@ void Camera::update(const Window& window, float deltaTime)
 		tmp.normalize();
 
 		tmp.x *= dt;
-		tmp.y = 0.0f;
+		tmp.y *= dt;
 		tmp.z *= dt;
 
 		from = from + tmp;
@@ -82,7 +82,7 @@ void Camera::update(const Window& window, float deltaTime)
 		tmp.normalize();
 
 		tmp.x *= dt;
-		tmp.y = 0.0f;
+		tmp.y *= dt;
 		tmp.z *= dt;
 
 
