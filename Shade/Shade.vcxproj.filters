@@ -75,6 +75,15 @@
     <ClCompile Include="src\MaterialTemplate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PointLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LightSetup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Graphics\buffers\SSBO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Graphics\buffers\IBO.h">
@@ -137,9 +146,21 @@
     <ClInclude Include="src\MaterialTemplate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\LightSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LightSetup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PointLight.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Graphics\buffers\SSBO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shaders\BlinnPhongFS.shader" />
-    <None Include="shaders\BlinnPhongVS.shader" />
+    <None Include="shaders\BlinnPhongFS.frag" />
+    <None Include="shaders\BlinnPhongVS.vert" />
   </ItemGroup>
 </Project>

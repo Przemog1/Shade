@@ -3,8 +3,8 @@
 
 ShaderManager::ShaderManager()
 {
-	defaultShader.getSourceCode(Shader::Type::Vertex,   "shaders/BlinnPhongVS.shader");
-	defaultShader.getSourceCode(Shader::Type::Fragment, "shaders/BlinnPhongFS.shader");
+	defaultShader.getSourceCode(Shader::Type::Vertex,   "shaders/BlinnPhongVS.vert");
+	defaultShader.getSourceCode(Shader::Type::Fragment, "shaders/BlinnPhongFS.frag");
 	defaultShader.linkProgram();
 }
 

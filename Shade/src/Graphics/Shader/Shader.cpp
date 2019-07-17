@@ -160,6 +160,11 @@ void Shader::uniform3f(const std::string& uniformName, float x, float y, float z
 	}
 }
 
+void Shader::uniform3f(const std::string& uniformName, gmath::Vec3f vec)
+{
+	uniform3f(uniformName, vec.x, vec.y, vec.z);
+}
+
 void Shader::uniform1i(const std::string& uniformName, int v)
 {
 	auto un = uniforms.find(uniformName);
@@ -195,12 +200,12 @@ int Shader::findUniform(const std::string& uniformName)
 	return glGetUniformLocation(shaderProgramID, uniformName.c_str());
 }
 
-Shader::Shader(Shader&& other)
+Shader::Shader(Shader&& other) noexcept
 {
 	this->shaderProgramID = other.shaderProgramID;
 	other.shaderProgramID = 0;
 }
-Shader& Shader::operator=(Shader&& other)
+Shader& Shader::operator=(Shader&& other) noexcept
 {
 	this->shaderProgramID = other.shaderProgramID;
 	other.shaderProgramID = 0;

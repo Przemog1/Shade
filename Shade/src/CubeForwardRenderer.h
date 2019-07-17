@@ -9,14 +9,13 @@
 class CubeForwardRenderer
 {
 public:
-	void draw(Cube& cube, Shader& shader);
-	void drawMultiple(const std::vector<Cube>& cubes, Shader& shader);
-
-	static CubeForwardRenderer& get();
-private:
 	CubeForwardRenderer();
 	~CubeForwardRenderer();
 
+	void draw(Cube& cube, Shader& shader);
+	void drawMultiple(const std::vector<Cube>& cubes, Shader& shader);
+
+private:
 	CubeForwardRenderer(const CubeForwardRenderer&) = delete;
 	CubeForwardRenderer& operator=(const CubeForwardRenderer&) = delete;
 

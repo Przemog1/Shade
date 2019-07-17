@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include <GMath/Vector.h>
 
 class Shader
 {
@@ -16,8 +17,8 @@ public:
 	void bind() const;
 	void unbind() const;
 
-	Shader(Shader&& other);
-	Shader& operator=(Shader&& other);
+	Shader(Shader&& other) noexcept;
+	Shader& operator=(Shader&& other) noexcept;
 
 	Shader(const Shader&) = delete;
 	Shader& operator=(const Shader&) = delete;
@@ -26,6 +27,7 @@ public:
 public:
 	void uniform1f(const std::string& uniformName, float v);
 	void uniform3f(const std::string& uniformName, float x, float y, float z);
+	void uniform3f(const std::string& uniformName, gmath::Vec3f vec);
 	void uniform1i(const std::string& uniformName, int v);
 	void uniformMatrix4f(const std::string& uniformName, float* matrixPtr);
 

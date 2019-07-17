@@ -58,12 +58,6 @@ CubeForwardRenderer::~CubeForwardRenderer()
 
 }
 
-CubeForwardRenderer& CubeForwardRenderer::get()
-{
-	static CubeForwardRenderer instance;
-	return instance;
-}
-
 
 void CubeForwardRenderer::draw(/*FIX IT!*/ Cube& cube,/*FIX IT!*/ Shader& shader)
 {

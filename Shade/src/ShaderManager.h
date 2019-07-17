@@ -3,6 +3,8 @@
 #include "Graphics/Shader/Shader.h"
 #include <string>
 
+//TODO:
+//convert to static class
 class ShaderManager
 {
 public:

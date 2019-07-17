@@ -30,7 +30,7 @@ private:
 private:
 	std::vector<Cube> cubes;
 	Floor floor;
-	CubeForwardRenderer& cubeRenderer;
+	CubeForwardRenderer cubeRenderer;
 
 	Timer timer;
 
@@ -39,6 +39,8 @@ private:
 	
 	Shader* mainShader;
 
+	SSBO pointLightSSBO;
+
 private:
 	void updateTimer();
 	float timeElapsed;
@@ -46,6 +48,7 @@ private:
 
 private:
 	void initializeShaders();
+	void setLighting();
 
 };
 
