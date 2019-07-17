@@ -14,7 +14,7 @@ void LightSetup::updateSSBOLightingData(SSBO& ssbo) const
 	//first component of PointLightBuffer is uint (number of lights)
 	*( (unsigned int*)(data.get()) ) = pointLights.size();
 
-	const size_t firstLightOffset = reinterpret_cast<uint32_t>(data.get()) + (sizeof(unsigned int) * 4);
+	const size_t firstLightOffset = reinterpret_cast<size_t>(data.get()) + (sizeof(unsigned int) * 4);
 
 	for (unsigned int i = 0; i < pointLights.size(); i++)
 	{
