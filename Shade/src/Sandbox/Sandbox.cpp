@@ -146,9 +146,9 @@ void Sandbox::setLighting()
 	LightSetup ls;
 	PointLight bulb;
 
-	for (int i = -15; i < 15; i++)
+	for (int i = -5; i < 5; i++)
 	{
-		for (int j = -15; j < 15; j++)
+		for (int j = -5; j < 5; j++)
 		{
 			bulb.ambientColor = gmath::Vec3f(0.1f);
 			bulb.diffuseColor = (i % 2) == 0 ? gmath::Vec3f(0.8118f, 0.6471f, 0.0941f) : gmath::Vec3f(0.1804, 0.0078, 0.1725);
